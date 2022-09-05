@@ -1,4 +1,4 @@
-package com.etmy.muzon.location;
+package com.etmy.onlinerpg.location;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +14,7 @@ public abstract class Location {
     protected String questText;
     protected Set<String> actions = new HashSet<>();
 
-    protected abstract void doAction(String action);
+    public abstract void doAction(String action);
+    public abstract Location move(String locationName);
 
 }

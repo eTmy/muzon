@@ -1,7 +1,7 @@
-package com.etmy.muzon.location;
+package com.etmy.onlinerpg.location;
 
-public class HotelRoom extends Location {
-    private static final String NAME = "Отель";
+public class StartRoom extends Location {
+    private static final String NAME = "Стартовая комната";
     private static final String TEXT = " Вы приземлились на планету Боннасис уже под вечер. " +
             "Служба безопасности провела недолгую проверку, по ходу дела осведомившись о цели вашего прибытия и изъяв " +
             "ваше оружие на время пребывания здесь. Выйдя из космопорта, вы отметили, что здесь довольно тепло, " +
@@ -14,17 +14,25 @@ public class HotelRoom extends Location {
             " \n" +
             " Незаметно наступило утро, и яркие лучи местного солнца осветили комнату. ";
 
-    public HotelRoom() {
+    {
         this.setName(NAME);
         this.setQuestText(TEXT);
-        this.actions.add("На главную площадь");
-        this.actions.add("Включить лаптоп");
-        this.actions.add("Дождаться ночи");
+        this.actions.add("В сад");
         this.actions.add("Плюнуть на все и уехать отсюда");
     }
 
     @Override
-    protected void doAction(String action) {
-        //тут изменять состояние игры в зависимости от выбранного действия
+    public void doAction(String action) {
+        switch (action) {
+            case "В сад" : move(action);
+        }
+    }
+
+    @Override
+    public Location move(String locationName) {
+        switch (locationName) {
+            case "В сад" : return new Garden();
+            default : return null;
+        }
     }
 }
