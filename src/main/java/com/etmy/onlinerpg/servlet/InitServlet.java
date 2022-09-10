@@ -32,7 +32,7 @@ public class InitServlet extends HttpServlet {
 
         app.getGameSessions().put(account, gameSession);
 
-        session.setAttribute("login", account.getLogin());
+        session.setAttribute("login", account.getUsername());
         context.setAttribute("app", app);
 
         resp.setStatus(301);

@@ -7,15 +7,15 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Account {
-    @JsonProperty("username")
-    private String login;
+    //@JsonProperty("username")
+    private String username;
     private String password;
 
     public Account(){
     }
 
-    public Account(String login, String password) {
-        this.login = login;
+    public Account(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 }

@@ -6,9 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GameSession {
-    private Player player;
+    private User user;
 
     {
-        this.player = new Player();
+        this.user = new User();
     }
 }

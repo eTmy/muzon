@@ -10,42 +10,44 @@
 </head>
 <body>
 <div id="root">
-    <div class="game-root">
+   <div class="gameSession-root">
         <div class="mainArea">
             <div style="width: 60%;">
                 <div class="questText">
-                    ${game.player.currentLocation.questText}
+                    ${gameSession.player.currentLocation.questText}
                 </div>
                 <div class="questAction">
-                    <c:forEach var = "action" items="${game.player.currentLocation.actions}">
-                        <div onclick="window.location=`/location?location=${currentLocation}&action=${action}`"> * ${action}</div>
+                    <c:forEach var = "action" items="${gameSession.player.currentLocation.actions}">
+                        <div onclick="window.location=`/location?location=${gameSession.player.currentLocation.name}&action=${action}`"> * ${action}</div>
                     </c:forEach>
+                    <button onclick="window.location=`/start?login=SuperDestroyer`"> Начать как SuperDestroyer </button>
+                    <button onclick="window.location=`/start?login=RozovayaTyan`"> Начать как РоЗоВаЯ ТЯН </button>
                 </div>
             </div>
             <div class="questState">
                 <div class="stateRaw" style="min-height: 32%">
-                    ${game.timesOfDay.toString()}
+                    ${gameSession.timesOfDay.toString()}
                     <br>
-                    Дней до концерта: ${game.daysLeft}
+                    Дней до концерта: ${gameSession.daysLeft}
                     <br>
-                    Деньги: ${game.player.money} рокнроллеров
+                    Деньги: ${gameSession.player.money} рокнроллеров
                     <br>
-                    Настроение: ${game.player.mood.toString()}
+                    Настроение: ${gameSession.player.mood.toString()}
                     <br>
-                    Вы ${game.player.drink.toString()}
+                    Вы ${gameSession.player.drink.toString()}
                 </div>
                 <div class="stateRaw" style="min-height: 32%">
                     <div style="align-items: center">Группа</div>
                     <br>
-                    Вокалист: ${game.vocal.toString()}
+                    Вокалист: ${gameSession.vocal.toString()}
                     <br>
-                    Гитарист: ${game.guitar.toString()}
+                    Гитарист: ${gameSession.guitar.toString()}
                     <br>
-                    Клавишник: ${game.keyboard.toString()}
+                    Клавишник: ${gameSession.keyboard.toString()}
                     <br>
-                    Басист: ${game.bass.toString()}
+                    Басист: ${gameSession.bass.toString()}
                     <br>
-                    Барабанщик: ${game.drum.toString()}
+                    Барабанщик: ${gameSession.drum.toString()}
                 </div>
                 <div class="stateRaw" style="min-height: 32%">
                     Инвентарь

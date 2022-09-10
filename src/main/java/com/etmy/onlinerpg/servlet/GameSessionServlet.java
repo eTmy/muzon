@@ -1,6 +1,5 @@
 package com.etmy.onlinerpg.servlet;
 
-import com.etmy.onlinerpg.GameSession;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 
