@@ -4,9 +4,8 @@ import com.etmy.onlinerpg.core.Application;
 import com.etmy.onlinerpg.core.GameSession;
 import com.etmy.onlinerpg.dto.LocationInfo;
 import com.etmy.onlinerpg.exception.AttributeNotFoundException;
-import com.etmy.onlinerpg.location.LocationFactoryImpl;
-import com.etmy.onlinerpg.location.Location;
-import com.etmy.onlinerpg.location.LocationFactory;
+import com.etmy.onlinerpg.services.LocationFactoryImpl;
+import com.etmy.onlinerpg.abstraction.Location;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,6 +40,7 @@ public class LocationServlet extends HttpServlet {
                 .text(newLocation.getText())
                 .srcImage(newLocation.getSrcImage())
                 .locations(newLocation.getLocations())
+                .creatures(newLocation.getCreatures())
                 .build();
 
         gameSession.getUser().setCurrentLocation(newLocation);

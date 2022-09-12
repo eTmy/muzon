@@ -1,4 +1,4 @@
-package com.etmy.onlinerpg.location;
+package com.etmy.onlinerpg.abstraction;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +15,7 @@ public abstract class Location {
     protected String srcImage;
     protected Set<String> actions = new HashSet<>();
     protected Set<String> locations = new HashSet<>();
+    protected Set<Creature> creatures = new HashSet<>();
 
     //public abstract void doAction(String action);
     //public abstract Location move(String locationName);
