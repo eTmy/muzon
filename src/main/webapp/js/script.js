@@ -7,7 +7,7 @@ let userNamePassword = document.getElementById('floatingPassword');
 authSendBtn.addEventListener('click', login);
 
 async function login() {
-    const username = userNameInput.value;
+    const login = userNameInput.value;
     const password = userNamePassword.value;
 
     if (!userNameInput.value || !userNamePassword.value) {
@@ -15,11 +15,11 @@ async function login() {
     }
 
     const data = {
-        username: username,
+        login: login,
         password: password
     }
 
-    const response = await fetch(`/${projectName}/start?data`, {
+    const response = await fetch(`/${projectName}/start`, {
         method: 'POST',
         redirect: 'follow',
         body: JSON.stringify(data),

@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.etmy</groupId>
-  <artifactId>muzon</artifactId>
+  <artifactId>onlinerpg</artifactId>
   <version>1.0</version>
   <packaging>war</packaging>
 
-  <name>muzon</name>
+  <name>onlinerpg</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,7 +54,7 @@
   </dependencies>
 
   <build>
-    <finalName>muzon</finalName>
+    <finalName>onlinerpg</finalName>
     <pluginManagement>
       <plugins>
         <plugin>

@@ -1,4 +1,4 @@
-package com.etmy.onlinerpg;
+package com.etmy.onlinerpg.core;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +8,7 @@ import lombok.Setter;
 public class GameSession {
     private User user;
 
-    {
-        this.user = new User();
+    public GameSession(User user) {
+        this.user = user;
     }
 }

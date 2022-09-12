@@ -1,8 +1,9 @@
 package com.etmy.onlinerpg.servlet;
 
-import com.etmy.onlinerpg.Account;
-import com.etmy.onlinerpg.Application;
-import com.etmy.onlinerpg.GameSession;
+import com.etmy.onlinerpg.core.Account;
+import com.etmy.onlinerpg.core.Application;
+import com.etmy.onlinerpg.core.GameSession;
+import com.etmy.onlinerpg.core.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.servlet.ServletContext;
@@ -22,18 +23,27 @@ public class InitServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ServletContext context = req.getServletContext();
+
         HttpSession session = req.getSession(true);
         ObjectMapper mapper = new ObjectMapper();
+        User user;
 
-        Application app = extractApp(context);
-        GameSession gameSession = new GameSession();
+        Application app = ServletUtils.extractApp(req);
+        String login = ServletUtils.extractLogin(req);
 
-        Account account = mapper.readValue(getAccount(req), Account.class);
+        if (login.isEmpty() || !app.isAuthorized(login)) {
+            Account account = mapper.readValue(getAccount(req), Account.class);
 
-        app.getGameSessions().put(account, gameSession);
+            user = new User(account);
+            GameSession gameSession = new GameSession(user);
 
-        session.setAttribute("login", account.getUsername());
-        context.setAttribute("app", app);
+            app.getGameSessions().put(account.getLogin(), gameSession);
+        } else {
+            GameSession gameSession = app.getGameSession(login);
+            user = gameSession.getUser();
+        }
+
+        session.setAttribute("login", user.getAccount().getLogin());
 
         resp.setStatus(301);
         resp.sendRedirect("/onlinerpg/index.html");
@@ -53,13 +63,5 @@ public class InitServlet extends HttpServlet {
         return jb.toString();
     }
 
-    private Application extractApp(ServletContext context) {
-        Object appAttribute = context.getAttribute("app");
-        if (Application.class != appAttribute.getClass()) {
-            throw new RuntimeException("Request received an invalid parameter");
-        }
-
-        return (Application) appAttribute;
-    }
 
 }

@@ -12,16 +12,29 @@
 <div class="page">
     <div class="container-fluid">
         <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <a href="/static" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                Online RPG
+            <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <span class="fs-4">Online RPG</span>
+            </p>
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <p class="nav-link px-2 link-dark" id="login"> </p>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link px-2 link-dark" id="hpStatus"> </p>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link px-2 link-dark" id="strengthStatus"></p>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link px-2 link-dark" id="agilityStatus"></p>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link px-2 link-dark" id="staminaStatus"></p>
+                </li>
+                <li class="nav-item">
+                    <p class="nav-link px-2 link-dark" id="intellectStatus"></p>
+                </li>
             </ul>
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-left mb-md-0" id="hpStatus"></ul>
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-left mb-md-0" id="username"></ul>
         </header>
         <div class="bd-example bd-example-placeholder-cards d-flex">
             <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
@@ -115,7 +128,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="index.js" async></script>
+<script src="./js/index.js" ></script>
 
 </body>
 </html>

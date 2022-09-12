@@ -1,7 +1,7 @@
 package com.etmy.onlinerpg.servlet;
 
-import com.etmy.onlinerpg.Application;
-import com.etmy.onlinerpg.GameSession;
+import com.etmy.onlinerpg.core.Application;
+import com.etmy.onlinerpg.core.GameSession;
 import com.etmy.onlinerpg.location.ActionLocationFactory;
 import com.etmy.onlinerpg.location.Location;
 import com.etmy.onlinerpg.location.LocationFactory;
@@ -44,7 +44,7 @@ public class LocationLogicServlet extends HttpServlet {
 
         context.setAttribute("app", app);
 
-        resp.sendRedirect("/index.jsp");
+        resp.sendRedirect("/index.html");
     }
 
     private Application extractApp(ServletContext context) {

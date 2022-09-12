@@ -1,5 +1,6 @@
-package com.etmy.onlinerpg;
+package com.etmy.onlinerpg.core;
 
+import com.etmy.onlinerpg.core.Account;
 import com.etmy.onlinerpg.location.StartRoom;
 import com.etmy.onlinerpg.location.Location;
 import lombok.Getter;
@@ -23,5 +24,9 @@ public class User {
         this.agility = 10;
         this.stamina = 10;
         this.intellect = 10;
+    }
+
+    public User(Account account) {
+        this.account = account;
     }
 }

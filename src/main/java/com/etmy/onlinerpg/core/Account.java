@@ -1,4 +1,4 @@
-package com.etmy.onlinerpg;
+package com.etmy.onlinerpg.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
@@ -7,15 +7,15 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Account {
-    //@JsonProperty("username")
-    private String username;
+
+    private String login;
     private String password;
 
     public Account(){
     }
 
-    public Account(String username, String password) {
-        this.username = username;
+    public Account(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 }

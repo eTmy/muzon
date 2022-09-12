@@ -8,15 +8,15 @@ import lombok.Setter;
 @Getter
 @Builder
 public class StatisticInfo {
-    private String username;
+    private String login;
     private int hp;
     private int strength;
     private int agility;
     private int stamina;
     private int intellect;
 
-    public StatisticInfo(String username, int hp, int strength, int agility, int stamina, int intellect) {
-        this.username = username;
+    public StatisticInfo(String login, int hp, int strength, int agility, int stamina, int intellect) {
+        this.login = login;
         this.hp = hp;
         this.strength = strength;
         this.agility = agility;

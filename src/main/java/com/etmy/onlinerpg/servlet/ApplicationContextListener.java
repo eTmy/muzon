@@ -1,6 +1,6 @@
 package com.etmy.onlinerpg.servlet;
 
-import com.etmy.onlinerpg.Application;
+import com.etmy.onlinerpg.core.Application;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

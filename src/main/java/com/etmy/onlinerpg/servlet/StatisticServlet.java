@@ -1,8 +1,14 @@
 package com.etmy.onlinerpg.servlet;
 
+import com.etmy.onlinerpg.core.Account;
+import com.etmy.onlinerpg.core.Application;
+import com.etmy.onlinerpg.core.GameSession;
+import com.etmy.onlinerpg.core.User;
 import com.etmy.onlinerpg.dto.StatisticInfo;
+import com.etmy.onlinerpg.exception.AuthFailedException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,11 +20,24 @@ import java.io.IOException;
 public class StatisticServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Application app = ServletUtils.extractApp(req);
         String login = ServletUtils.extractLogin(req);
 
+        if (!app.isAuthorized(login)) {
+            resp.setStatus(401);
+            return;
+        }
+
+        GameSession gameSession = app.getGameSession(login);
+        User user = gameSession.getUser();
+
         StatisticInfo statisticInfo = StatisticInfo.builder()
-                .username(login)
-                .hp(100)
+                .login(user.getAccount().getLogin())
+                .hp(user.getHp())
+                .agility(user.getAgility())
+                .intellect(user.getIntellect())
+                .stamina(user.getStamina())
+                .strength(user.getStrength())
                 .build();
 
         ObjectMapper mapper = new ObjectMapper();
