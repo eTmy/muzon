@@ -1,7 +1,6 @@
 package com.etmy.onlinerpg.core;
 
-import com.etmy.onlinerpg.core.Account;
-import com.etmy.onlinerpg.location.StartRoom;
+import com.etmy.onlinerpg.location.Hotel;
 import com.etmy.onlinerpg.location.Location;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +17,7 @@ public class User {
     private int intellect;
 
     {
-        this.currentLocation = new StartRoom();
+        this.currentLocation = new Hotel();
         this.hp = 100;
         this.strength = 10;
         this.agility = 10;

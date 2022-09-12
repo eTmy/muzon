@@ -9,10 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -22,29 +19,31 @@ public class InitServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext context = req.getServletContext();
-
-        HttpSession session = req.getSession(true);
         ObjectMapper mapper = new ObjectMapper();
         User user;
 
         Application app = ServletUtils.extractApp(req);
         String login = ServletUtils.extractLogin(req);
 
-        if (login.isEmpty() || !app.isAuthorized(login)) {
+        if (ServletUtils.sessionIsAuthorized(app, login)) {
+            //сделать поиск по уже существующим юзерам в файле/бд и инициализировать сессию у сущ юзера
+            GameSession gameSession = app.getGameSession(login);
+            user = gameSession.getUser();
+        } else {
             Account account = mapper.readValue(getAccount(req), Account.class);
 
             user = new User(account);
             GameSession gameSession = new GameSession(user);
 
             app.getGameSessions().put(account.getLogin(), gameSession);
-        } else {
-            GameSession gameSession = app.getGameSession(login);
-            user = gameSession.getUser();
         }
 
+        HttpSession session = req.getSession(true);
         session.setAttribute("login", user.getAccount().getLogin());
 
+        Cookie cookie = new Cookie("currentRoom", "Hotel");
+
+        resp.addCookie(cookie);
         resp.setStatus(301);
         resp.sendRedirect("/onlinerpg/index.html");
     }

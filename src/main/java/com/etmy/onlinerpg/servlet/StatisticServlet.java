@@ -1,14 +1,11 @@
 package com.etmy.onlinerpg.servlet;
 
-import com.etmy.onlinerpg.core.Account;
 import com.etmy.onlinerpg.core.Application;
 import com.etmy.onlinerpg.core.GameSession;
 import com.etmy.onlinerpg.core.User;
 import com.etmy.onlinerpg.dto.StatisticInfo;
-import com.etmy.onlinerpg.exception.AuthFailedException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +21,7 @@ public class StatisticServlet extends HttpServlet {
         String login = ServletUtils.extractLogin(req);
 
         if (!app.isAuthorized(login)) {
-            resp.setStatus(401);
+            resp.sendError(401);
             return;
         }
 

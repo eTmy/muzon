@@ -1,8 +1,9 @@
 package com.etmy.onlinerpg.servlet;
 
+
 import com.etmy.onlinerpg.core.Application;
 import com.etmy.onlinerpg.exception.AttributeNotFoundException;
-import com.etmy.onlinerpg.exception.AuthFailedException;
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,10 @@ public class ServletUtils {
         } catch (AttributeNotFoundException exception) {
             return "";
         }
+    }
+
+    public static boolean sessionIsAuthorized(Application app, String login) {
+        return !login.isEmpty() && app.isAuthorized(login);
     }
 
     public static Application extractApp(HttpServletRequest req) {

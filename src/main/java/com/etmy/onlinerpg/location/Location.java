@@ -11,10 +11,12 @@ import java.util.Set;
 public abstract class Location {
 
     protected String name;
-    protected String questText;
+    protected String text;
+    protected String srcImage;
     protected Set<String> actions = new HashSet<>();
+    protected Set<String> locations = new HashSet<>();
 
-    public abstract void doAction(String action);
-    public abstract Location move(String locationName);
+    //public abstract void doAction(String action);
+    //public abstract Location move(String locationName);
 
 }
