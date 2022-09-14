@@ -33,7 +33,11 @@ public class DialogServlet extends HttpServlet {
         }
 
         String npcName = ServletUtils.getRequestParameter(req, "npcName");
-        String messageId = ServletUtils.getRequestParameter(req, "messageId");
+        int messageId = Integer.parseInt(ServletUtils.getRequestParameter(req, "messageId"));
+
+        if (messageId == 0) {
+            return;
+        }
 
         GameSession gameSession = app.getGameSession(login);
         Location currentLocation = gameSession.getUser().getCurrentLocation();
@@ -48,7 +52,7 @@ public class DialogServlet extends HttpServlet {
         }
 
         Npc npc = (Npc) creature.get();
-        Message message = npc.speak(Integer.parseInt(messageId));
+        Message message = npc.speak(messageId);
 
         ObjectMapper mapper = new ObjectMapper();
         ServletUtils.setResponseBody(resp, mapper.writeValueAsString(message));

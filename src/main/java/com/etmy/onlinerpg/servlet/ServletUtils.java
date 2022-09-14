@@ -1,6 +1,5 @@
 package com.etmy.onlinerpg.servlet;
 
-
 import com.etmy.onlinerpg.core.Application;
 import com.etmy.onlinerpg.exception.AttributeNotFoundException;
 import com.etmy.onlinerpg.exception.ParameterNotFoundException;
@@ -69,5 +68,6 @@ public class ServletUtils {
 
         return result;
     }
+
 
 }

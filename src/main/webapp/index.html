@@ -8,94 +8,82 @@
     <link href="static/style.css" rel="stylesheet">
     <title>OnlineRPG</title>
 </head>
-<body style="Line-height: 1.5em">
+<body>
 <div class="page">
-    <div class="container-fluid">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <p class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <span class="fs-4">Online RPG</span>
-            </p>
-            <ul class="nav nav-pills">
-                <li class="nav-item">
-                    <p class="nav-link px-2 link-dark" id="login"> </p>
-                </li>
-                <li class="nav-item">
-                    <p class="nav-link px-2 link-dark" id="hpStatus"> </p>
-                </li>
-                <li class="nav-item">
-                    <p class="nav-link px-2 link-dark" id="strengthStatus"></p>
-                </li>
-                <li class="nav-item">
-                    <p class="nav-link px-2 link-dark" id="agilityStatus"></p>
-                </li>
-                <li class="nav-item">
-                    <p class="nav-link px-2 link-dark" id="staminaStatus"></p>
-                </li>
-                <li class="nav-item">
-                    <p class="nav-link px-2 link-dark" id="intellectStatus"></p>
-                </li>
-            </ul>
-        </header>
-        <div class="bd-example bd-example-placeholder-cards d-flex">
-            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-                <a href="/static" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-center">
-                    <span class="fs-5 fw-semibold">
-                        <strong>NPC</strong>
-                    </span>
-                </a>
-                <div class="list-group list-group-flush border-bottom scrollarea" id="npcBar"></div>
-            </div>
-            <div class="card" style="display: block; margin: 0 auto; max-width: 800px">
-                <img src="image/hotel-room.png" class="card-img-top" id="roomImage">
-                <div class="card-body" id="locationBar"></div>
-            </div>
-            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-                <a href="/static" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-center">
-                    <span class="fs-5 fw-semibold">
-                        <strong>Inventory</strong>
-                    </span>
-                </a>
-                <div class="list-group list-group-flush border-bottom scrollarea">
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">Катана</strong>
-                            <small>Меч</small>
-                        </div>
-                        <div class="col-10 mb-1 small">
-                            По форме клинка катана напоминает шашку, однако рукоять у неё прямая и длинная,
-                            что позволяет использовать двуручный хват. Навершие отсутствует. Небольшой изгиб клинка и
-                            острый конец позволяют наносить также и колющие удары.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">Узи</strong>
-                            <small>Огнестрел</small>
-                        </div>
-                        <div class="col-10 mb-1 small">
-                            Самозарядный пистолет, отличается компактным размером, укороченным до 115 мм стволом,
-                            невозможностью вести автоматическую стрельбу и отсутствием складного приклада.
-                        </div>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <strong class="mb-1">Плюшевый медведь</strong>
-                            <small>Аксессуар</small>
-                        </div>
-                        <div class="col-10 mb-1 small">
-                            Славный мишка некогда падаренный вашим отцом
-                        </div>
-                    </a>
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom bg-dark">
+                <div class="d-flex flex-row align-items-center justify-content-center" style="width: 380px">
+                    <a class="nav-link px-2 text-white" id="login"></a>
                 </div>
+                <ul class="nav col-12 col-md-auto mb-2 align-items-center justify-content-center mb-md-0">
+                    <li><a class="nav-link px-2 text-white">Inventory</a></li>
+                    <li><a class="nav-link px-2 text-white" onclick="showQuests()">Quests</a></li>
+                </ul>
+                <ul class="nav col-12 col-md-auto mb-2 align-items-center justify-content-center mb-md-0" style="width: 380px">
+                    <li><a class="nav-link px-2 text-white" id="hpStatus"></a></li>
+                    <li><a class="nav-link px-2 text-white" id="strengthStatus"></a></li>
+                    <li><a class="nav-link px-2 text-white" id="agilityStatus"></a></li>
+                    <li><a class="nav-link px-2 text-white" id="staminaStatus"></a></li>
+                    <li><a class="nav-link px-2 text-white" id="intellectStatus"></a></li>
+                </ul>
+        </header>
+    <div class="bd-example bd-example-placeholder-cards d-flex">
+        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+            <a href="/static" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-center bg-dark">
+                <span class="fs-5 fw-semibold text-white">
+                    <strong>NPC</strong>
+                </span>
+            </a>
+            <div class="list-group list-group-flush border-bottom scrollarea" id="npcBar"></div>
+        </div>
+        <div class="card" style="display: block; margin: 0 auto; max-width: 800px">
+            <img src="image/hotel-room.png" class="card-img-top" id="roomImage">
+            <div class="card-body" id="locationBar"></div>
+        </div>
+        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+            <a href="/static" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-center bg-dark">
+                <span class="fs-5 fw-semibold text-white">
+                    <strong>Items</strong>
+                </span>
+            </a>
+            <div class="list-group list-group-flush border-bottom scrollarea">
+                <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <strong class="mb-1">Катана</strong>
+                        <small>Меч</small>
+                    </div>
+                    <div class="col-10 mb-1 small">
+                        По форме клинка катана напоминает шашку, однако рукоять у неё прямая и длинная,
+                        что позволяет использовать двуручный хват. Навершие отсутствует. Небольшой изгиб клинка и
+                        острый конец позволяют наносить также и колющие удары.
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <strong class="mb-1">Узи</strong>
+                        <small>Огнестрел</small>
+                    </div>
+                    <div class="col-10 mb-1 small">
+                        Самозарядный пистолет, отличается компактным размером, укороченным до 115 мм стволом,
+                        невозможностью вести автоматическую стрельбу и отсутствием складного приклада.
+                    </div>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
+                    <div class="d-flex w-100 align-items-center justify-content-between">
+                        <strong class="mb-1">Плюшевый медведь</strong>
+                        <small>Аксессуар</small>
+                    </div>
+                    <div class="col-10 mb-1 small">
+                        Славный мишка некогда падаренный вашим отцом
+                    </div>
+                </a>
             </div>
         </div>
-
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="./js/index.js" ></script>
+<script src="./js/index.js"></script>
 
 </body>
 </html>

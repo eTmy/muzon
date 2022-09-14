@@ -2,6 +2,7 @@ package com.etmy.onlinerpg.npc;
 
 import com.etmy.onlinerpg.abstraction.Npc;
 import com.etmy.onlinerpg.core.Message;
+import com.etmy.onlinerpg.core.Quest;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class Catman extends Npc  {
         this.hp = stamina * 10;
 
         this.setDialog(buildDialog());
+        this.setAvailableQuests(buildQuests());
 
     }
 
@@ -36,6 +38,7 @@ public class Catman extends Npc  {
                                         .nextMessageId(2)
                                         .build(),
                                 Message.Answer.builder()
+                                        .nextMessageId(0)
                                         .text("Leave")
                                         .build()
                         ))
@@ -45,10 +48,10 @@ public class Catman extends Npc  {
         messages.add(
                 Message.builder()
                         .id(2)
-                        .text("...")
+                        .text("Continues to look at you with interest")
                         .answers(Set.of(
                                 Message.Answer.builder()
-                                        .text("MEOW... MEOW... MEOW")
+                                        .text("MEOW... MEOW... MEOW...")
                                         .nextMessageId(3)
                                         .build()
                         ))
@@ -58,20 +61,17 @@ public class Catman extends Npc  {
         messages.add(
                 Message.builder()
                         .id(3)
-                        .text("BUUUUUUUUU!!!")
+                        .text("You're not very smart, yep?")
                         .answers(Set.of(
                                 Message.Answer.builder()
-                                        .text("OMG!!! Damn, you scared me! You can speak?")
+                                        .text("You can speak? Damn, you scared me!")
                                         .nextMessageId(4)
                                         .build(),
                                 Message.Answer.builder()
-                                        .text("Nice try, I'm not scared")
-                                        .nextMessageId(4)
-                                        .build(),
-                                Message.Answer.builder()
-                                        .text("Who are you?")
-                                        .nextMessageId(4)
+                                        .text("Yep, I'd better leave")
+                                        .nextMessageId(0)
                                         .build()
+
                         ))
                         .build()
         );
@@ -88,6 +88,28 @@ public class Catman extends Npc  {
                                         .nextMessageId(5)
                                         .build(),
                                 Message.Answer.builder()
+                                        .nextMessageId(0)
+                                        .text("Leave")
+                                        .build()
+                        ))
+                        .build()
+        );
+
+        messages.add(
+                Message.builder()
+                        .id(5)
+                        .text("It is now 2343. A lot has changed in 300 years. All races have evolved through the use " +
+                                "of prosthetics from human organs. Because of this, people were almost exterminated, " +
+                                "and the remains are being hunted. Lucky you met me first. You need to find a weapon, " +
+                                "outside the hotel many will try to kill you for your organs. Look at the weapon " +
+                                "in Hotel-room")
+                        .answers(Set.of(
+                                Message.Answer.builder()
+                                        .text("Okay, I'll go get my weapon.")
+                                        .questId(1)
+                                        .build(),
+                                Message.Answer.builder()
+                                        .nextMessageId(0)
                                         .text("Leave")
                                         .build()
                         ))
@@ -95,5 +117,18 @@ public class Catman extends Npc  {
         );
 
         return messages;
+    }
+
+    public Set<Quest> buildQuests() {
+        Set<Quest> quests = new HashSet<>();
+
+        quests.add(Quest.builder()
+                .id(1)
+                .name("Find first weapon")
+                .description("Find a weapon in your Hotel-room")
+                .build()
+        );
+
+        return quests;
     }
 }

@@ -1,13 +1,13 @@
 const projectName = 'onlinerpg';
 let currentRoom = getCookie('currentRoom');
 
-showContent(currentRoom);
+showLocations(currentRoom);
 showStatistic();
 
 async function showStatistic() {
     let statistic = await getStatistic();
 
-    document.getElementById("login").innerHTML = statistic.login + ': ';
+    document.getElementById("login").innerHTML = 'You: ' + statistic.login;
     document.getElementById("hpStatus").innerHTML = 'HP: ' + statistic.hp;
     document.getElementById("strengthStatus").innerHTML = 'STR: ' + statistic.strength;
     document.getElementById("agilityStatus").innerHTML = 'AGI: ' + statistic.agility;
@@ -25,7 +25,7 @@ async function getStatistic() {
     return await response.json();
 }
 
-async function showContent(location) {
+async function showLocations(location) {
     let newLocation = await getLocation(location);
 
     let roomImage = document.querySelector('#roomImage');
@@ -90,7 +90,7 @@ function generateLocationBarHtml(location) {
 
     location.locations.forEach(
         function (currentValue) {
-            locationsHtml = locationsHtml + `<a href="#" class="btn btn-dark" onclick="showContent('${currentValue}')">${currentValue}</a>\n`
+            locationsHtml = locationsHtml + `<a href="#" class="btn btn-dark" onclick="showLocations('${currentValue}')">${currentValue}</a>\n`
         }
     )
 
@@ -102,8 +102,19 @@ function getCookie(name) {
     return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
-async function showDialog(npcName, messageId, srcImage) {
+async function showDialog(npcName, messageId, srcImage, questId) {
+    //TODO сделать обработку сетки диалогов со стороны фронта вместо бэкенда
+    if (questId !== undefined && questId !== '0') {
+        acceptQuest(npcName, questId);
+        return;
+    }
+
+    if (messageId === '0') {
+        return;
+    }
+
     let dialog = await getDialog(npcName, messageId);
+
     showModal(getDialogHtml(npcName, dialog, srcImage));
 }
 
@@ -123,21 +134,24 @@ function getDialogHtml(npcName, dialog, srcImage) {
              aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                 <div class="modal-content">
-                    <div class="text-center " style="margin: 15px"> 
-                        <h5>${npcName}</h5>                      
+                    <div class="align-items-center bg-dark text-white p-2" style="text-align: center"> 
+                        <span class="fs-5 fw-semibold text-white">
+                            <strong>${npcName}</strong>
+                        </span>                                             
                     </div>
+                    
                     <div class="list-group-item list-group-item-action py-3 lh-sm text-center">
                         <img src="${srcImage}" class="card-img-top">                                              
                     </div>
                     <div class="text-center" style="margin: 15px">
                         ${dialog.text}
                     </div>
-                    <div class="text-center" style="margin: 15px">                                      
+                    <div class="d-grid gap-2">
         `;
     dialog.answers.forEach(
         function (answer) {
             dialogHtml = dialogHtml + `
-                <button type="button" class="btn btn-dark"  style="margin: 5px" data-bs-dismiss="modal" onclick="showDialog('${npcName}', '${answer.nextMessageId}', '${srcImage}')">${answer.text}</button>       
+                <button type="button" class="btn btn-dark"  style="margin: 1px" data-bs-dismiss="modal" onclick="showDialog('${npcName}', '${answer.nextMessageId}', '${srcImage}','${answer.questId}')">${answer.text}</button>       
             `;
         }
     )
@@ -149,16 +163,28 @@ function getDialogHtml(npcName, dialog, srcImage) {
         </div>`
 
     return dialogHtml;
+}
 
-//         <!--<button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>-->
-// <!--        <button type="button" class="btn btn-primary">Understood</button>-->
+async function acceptQuest(npcName, questId) {
+    const response = await fetch(`/${projectName}/quest?npcName=${npcName}&questId=${questId}&isAccepted=true`);
 
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+}
+
+async function finishQuest(npcName, questId) {
+    const response = await fetch(`/${projectName}/quest?npcName=${npcName}&questId=${questId}&isFinished=true`);
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
 }
 
 let modalWrap = null;
 const showModal = (dialogHtml) => {
 
-    if(modalWrap !== null) {
+    if (modalWrap !== null) {
         modalWrap.remove();
     }
 
@@ -168,4 +194,78 @@ const showModal = (dialogHtml) => {
 
     let modal = new bootstrap.Modal(modalWrap.querySelector('.modal'));
     modal.show();
+}
+
+async function showQuests() {
+    let quests = await getQuests();
+
+    showModal(getQuestsHtml(quests));
+}
+
+async function getQuests() {
+    const response = await fetch(`/${projectName}/questlist`);
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+}
+
+function getQuestsHtml(quests){
+    //TODO Отрефакторить этот ужас
+    let questHtml = `
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1"
+             aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="align-items-center bg-dark text-white p-2" style="text-align: center"> 
+                        <span class="fs-5 fw-semibold text-white">
+                            <strong>Quests</strong>
+                        </span>                                             
+                    </div>                    
+                    <div class="list-group-item list-group-item-action py-3 lh-sm text-left">
+                        <div class="d-grid gap-2">
+                            <strong>Active quests:</strong>
+                            <ul class="nav col-12 col-md-auto mb-2 align-items-center justify-content-center mb-md-0" id="activeQuests">
+        `;
+
+    quests.forEach(
+        function (quest) {
+            if (!quest.isFinished) {
+                questHtml = questHtml + `
+                    <li><a class="nav-link px-2 link-dark">${quest.name} - </a></li>
+                    <li><a class="nav-link px-2 link-dark">${quest.description}</a></li>
+            `;
+            }
+        }
+    )
+
+    questHtml = questHtml + `
+                        </ul>                       
+                        <strong>Finished quests:</strong>
+                        <ul class="nav col-12 col-md-auto mb-2 align-items-center justify-content-center mb-md-0" id="finishedQuests">
+        `;
+
+    quests.forEach(
+        function (quest) {
+            if (quest.isFinished) {
+                questHtml = questHtml + `
+                    <li><a class="nav-link px-2 link-dark">${quest.name}</a></li>
+                    <li><a class="nav-link px-2 link-dark">${quest.description}</a></li>
+            `;
+            }
+        }
+    )
+
+    questHtml = questHtml + `
+                            </ul>
+                            <button type="button" class="btn btn-dark"  style="margin: 1px" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+
+    return questHtml;
 }
