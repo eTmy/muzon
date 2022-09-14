@@ -3,6 +3,8 @@ package com.etmy.onlinerpg.servlet;
 
 import com.etmy.onlinerpg.core.Application;
 import com.etmy.onlinerpg.exception.AttributeNotFoundException;
+import com.etmy.onlinerpg.exception.ParameterNotFoundException;
+import org.apache.commons.lang3.StringUtils;
 
 
 import javax.servlet.ServletContext;
@@ -56,6 +58,16 @@ public class ServletUtils {
             throw new RuntimeException("Failed parse HttpSession attribute to string: \"" + objectAttribute + "\n");
         }
         return (String) objectAttribute;
+    }
+
+    public static String getRequestParameter(HttpServletRequest req, String parameter) {
+        String result = req.getParameter(parameter);
+
+        if (StringUtils.isBlank(result)) {
+            throw new ParameterNotFoundException("Request not found parameter \"" + parameter + "\"");
+        }
+
+        return result;
     }
 
 }

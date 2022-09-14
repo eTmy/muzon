@@ -1,9 +1,11 @@
 package com.etmy.onlinerpg.npc;
 
 import com.etmy.onlinerpg.abstraction.Creature;
+import com.etmy.onlinerpg.abstraction.Npc;
 import com.etmy.onlinerpg.abstraction.Speakable;
+import com.etmy.onlinerpg.core.Message;
 
-public class EvilCatman extends Creature implements Speakable {
+public class EvilCatman extends Npc implements Speakable {
     {
         this.name = "Archie";
         this.nickname = "Half liter";
@@ -18,7 +20,7 @@ public class EvilCatman extends Creature implements Speakable {
     }
 
     @Override
-    public String speak() {
-        return "Meow?";
+    public Message speak(int id) {
+        return this.getMessage(id);
     }
 }

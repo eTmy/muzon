@@ -1,9 +1,10 @@
 package com.etmy.onlinerpg.npc;
 
-import com.etmy.onlinerpg.abstraction.Creature;
+import com.etmy.onlinerpg.abstraction.Npc;
 import com.etmy.onlinerpg.abstraction.Speakable;
+import com.etmy.onlinerpg.core.Message;
 
-public class Fanatic extends Creature implements Speakable {
+public class Fanatic extends Npc implements Speakable {
 
     {
         this.name = "Fanatic";
@@ -17,9 +18,11 @@ public class Fanatic extends Creature implements Speakable {
         this.intellect = 20;
         this.hp = stamina * 10;
     }
-
     @Override
-    public String speak() {
-        return "Great, we're alone here! NOW YOU WILL DIE!!!";
+    public Message speak(int id) {
+        return this.getMessage(id);
     }
+
+    // "Great, we're alone here! NOW YOU WILL DIE!!!;
+
 }
