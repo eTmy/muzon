@@ -5,7 +5,6 @@ import com.etmy.onlinerpg.abstraction.Npc;
 import com.etmy.onlinerpg.core.Application;
 import com.etmy.onlinerpg.core.GameSession;
 import com.etmy.onlinerpg.core.Quest;
-import com.etmy.onlinerpg.core.User;
 import com.etmy.onlinerpg.exception.ParameterNotFoundException;
 
 import javax.servlet.ServletException;

@@ -13,6 +13,6 @@ public class Quest {
     int id;
     String name;
     String description;
-    boolean isAccepted;
-    boolean isFinished;
+    boolean accepted;
+    boolean finished;
 }

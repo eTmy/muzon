@@ -30,10 +30,10 @@ public abstract class Npc extends Creature implements Speakable {
     }
 
     public Quest getQuest(int id) {
-        Optional<Quest> quest = availableQuests.stream().filter(m -> m.getId() == id).findAny();
+        Optional<Quest> quest = availableQuests.stream().filter(q -> q.getId() == id).findAny();
 
         if (quest.isEmpty()) {
-            throw new NotFoundMessageException(this.name + " not found message with id " + id);
+            throw new NotFoundMessageException(this.name + " not found quest with id " + id);
         }
 
         return quest.get();

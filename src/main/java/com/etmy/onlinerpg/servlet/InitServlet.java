@@ -42,7 +42,6 @@ public class InitServlet extends HttpServlet {
         HttpSession session = req.getSession(true);
         session.setAttribute("login", user.getAccount().getLogin());
 
-        //Cookie cookie = new Cookie("currentRoom", "Hotel-room");
         Cookie cookie = new Cookie("currentRoom", user.getCurrentLocation().getName());
 
         resp.addCookie(cookie);

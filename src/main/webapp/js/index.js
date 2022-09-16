@@ -127,7 +127,7 @@ function generateItemBarHtml(items){
         }
     )
 
-    document.cookie =encodeURIComponent('locationItems') + '=' + encodeURIComponent(locationItems);
+    //document.cookie =encodeURIComponent('locationItems') + '=' + encodeURIComponent(locationItems);
     return itemBarHtml;
 }
 
@@ -266,7 +266,7 @@ function getQuestsHtml(quests){
 
     quests.forEach(
         function (quest) {
-            if (!quest.isFinished) {
+            if (!quest.finished) {
                 questHtml = questHtml + `
                     <li><a class="nav-link px-2 link-dark">${quest.name} : </a></li>
                     <li><a class="nav-link px-2 link-dark">${quest.description}</a></li>
@@ -283,7 +283,7 @@ function getQuestsHtml(quests){
 
     quests.forEach(
         function (quest) {
-            if (quest.isFinished) {
+            if (quest.finished) {
                 questHtml = questHtml + `
                     <li><a class="nav-link px-2 link-dark">${quest.name}</a></li>
                     <li><a class="nav-link px-2 link-dark">${quest.description}</a></li>

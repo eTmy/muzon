@@ -13,6 +13,7 @@ public abstract class Item {
     protected ItemType type;
     protected String description;
     protected String srcImage;
+    protected int questId;
 
     public Item() {
     }

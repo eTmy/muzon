@@ -3,6 +3,7 @@ package com.etmy.onlinerpg.npc;
 import com.etmy.onlinerpg.abstraction.Npc;
 import com.etmy.onlinerpg.core.Message;
 import com.etmy.onlinerpg.core.Quest;
+import com.etmy.onlinerpg.core.User;
 
 import java.util.HashSet;
 import java.util.Set;
