@@ -35,6 +35,7 @@ public class StatisticServlet extends HttpServlet {
                 .intellect(user.getIntellect())
                 .stamina(user.getStamina())
                 .strength(user.getStrength())
+                .damage(user.getDamage())
                 .build();
 
         ObjectMapper mapper = new ObjectMapper();

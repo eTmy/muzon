@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -67,6 +68,20 @@ public class ServletUtils {
         }
 
         return result;
+    }
+
+    public static String getReqBody(HttpServletRequest req){
+        StringBuffer jb = new StringBuffer();
+        String line = null;
+        try {
+            BufferedReader reader = req.getReader();
+            while ((line = reader.readLine()) != null)
+                jb.append(line);
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+
+        return jb.toString();
     }
 
 

@@ -24,6 +24,8 @@
                     <li><a class="nav-link px-2 text-white" id="agilityStatus"></a></li>
                     <li><a class="nav-link px-2 text-white" id="staminaStatus"></a></li>
                     <li><a class="nav-link px-2 text-white" id="intellectStatus"></a></li>
+                    <li><a class="nav-link px-2 text-white" id="damageStatus"></a></li>
+                    <li><a class="nav-link px-2 text-white" id="armorStatus"></a></li>
                 </ul>
         </header>
     <div class="bd-example bd-example-placeholder-cards d-flex">
@@ -45,38 +47,7 @@
                     <strong>Items</strong>
                 </span>
             </a>
-            <div class="list-group list-group-flush border-bottom scrollarea">
-                <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">Катана</strong>
-                        <small>Меч</small>
-                    </div>
-                    <div class="col-10 mb-1 small">
-                        По форме клинка катана напоминает шашку, однако рукоять у неё прямая и длинная,
-                        что позволяет использовать двуручный хват. Навершие отсутствует. Небольшой изгиб клинка и
-                        острый конец позволяют наносить также и колющие удары.
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">Узи</strong>
-                        <small>Огнестрел</small>
-                    </div>
-                    <div class="col-10 mb-1 small">
-                        Самозарядный пистолет, отличается компактным размером, укороченным до 115 мм стволом,
-                        невозможностью вести автоматическую стрельбу и отсутствием складного приклада.
-                    </div>
-                </a>
-                <a href="#" class="list-group-item list-group-item-action py-3 lh-sm">
-                    <div class="d-flex w-100 align-items-center justify-content-between">
-                        <strong class="mb-1">Плюшевый медведь</strong>
-                        <small>Аксессуар</small>
-                    </div>
-                    <div class="col-10 mb-1 small">
-                        Славный мишка некогда падаренный вашим отцом
-                    </div>
-                </a>
-            </div>
+            <div class="list-group list-group-flush border-bottom scrollarea" id="itemBar"></div>
         </div>
     </div>
 </div>

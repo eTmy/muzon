@@ -26,11 +26,12 @@ public class InitServlet extends HttpServlet {
         String login = ServletUtils.extractLogin(req);
 
         if (ServletUtils.sessionIsAuthorized(app, login)) {
-            //сделать поиск по уже существующим юзерам в файле/бд и инициализировать сессию у сущ юзера
+            //TODO сделать возможнсть логаута
+            //TODO сделать поиск по уже существующим юзерам в файле/бд и инициализировать сессию у сущ юзера
             GameSession gameSession = app.getGameSession(login);
             user = gameSession.getUser();
         } else {
-            Account account = mapper.readValue(getAccount(req), Account.class);
+            Account account = mapper.readValue(ServletUtils.getReqBody(req), Account.class);
 
             user = new User(account);
             GameSession gameSession = new GameSession(user);
@@ -41,25 +42,12 @@ public class InitServlet extends HttpServlet {
         HttpSession session = req.getSession(true);
         session.setAttribute("login", user.getAccount().getLogin());
 
-        Cookie cookie = new Cookie("currentRoom", "Hotel-room");
+        //Cookie cookie = new Cookie("currentRoom", "Hotel-room");
+        Cookie cookie = new Cookie("currentRoom", user.getCurrentLocation().getName());
 
         resp.addCookie(cookie);
         resp.setStatus(301);
         resp.sendRedirect("/onlinerpg/index.html");
-    }
-
-    private String getAccount(HttpServletRequest req) {
-        StringBuffer jb = new StringBuffer();
-        String line = null;
-        try {
-            BufferedReader reader = req.getReader();
-            while ((line = reader.readLine()) != null)
-                jb.append(line);
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-
-        return jb.toString();
     }
 
 

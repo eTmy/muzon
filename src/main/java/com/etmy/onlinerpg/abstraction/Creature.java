@@ -10,6 +10,8 @@ public abstract class Creature {
     protected int agility;
     protected int stamina;
     protected int intellect;
+    protected int damage;
+    protected int armor;
     protected String name;
     protected String description;
     protected String nickname;
@@ -21,6 +23,8 @@ public abstract class Creature {
         this.stamina = 10;
         this.intellect = 10;
         this.hp = 100;
+        this.damage = 10;
+        this.armor = 0;
     }
 
 

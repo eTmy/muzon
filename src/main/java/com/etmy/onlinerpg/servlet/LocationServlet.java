@@ -3,11 +3,9 @@ package com.etmy.onlinerpg.servlet;
 import com.etmy.onlinerpg.core.Application;
 import com.etmy.onlinerpg.core.GameSession;
 import com.etmy.onlinerpg.dto.LocationInfo;
-import com.etmy.onlinerpg.exception.AttributeNotFoundException;
 import com.etmy.onlinerpg.services.LocationFactoryImpl;
 import com.etmy.onlinerpg.abstraction.Location;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,11 +27,13 @@ public class LocationServlet extends HttpServlet {
         }
 
         GameSession gameSession = app.getGameSession(login);
-        String location = getSelectedLocation(req);
-        //проверить если возможность перейти из текущей локации
+        String location = ServletUtils.getRequestParameter(req, "location");
+
+        //TODO проверить если возможность перейти из текущей локации
 
         LocationFactoryImpl locationFactory = new LocationFactoryImpl();
         Location newLocation =  locationFactory.createLocation(location);
+        newLocation.buildItems(gameSession.getUser());
 
         LocationInfo locationInfo = LocationInfo.builder()
                 .name(newLocation.getName())
@@ -41,6 +41,7 @@ public class LocationServlet extends HttpServlet {
                 .srcImage(newLocation.getSrcImage())
                 .locations(newLocation.getLocations())
                 .creatures(newLocation.getCreatures())
+                .items(newLocation.getItems())
                 .build();
 
         gameSession.getUser().setCurrentLocation(newLocation);
@@ -50,24 +51,4 @@ public class LocationServlet extends HttpServlet {
         ServletUtils.setResponseBody(resp, mapper.writeValueAsString(locationInfo));
     }
 
-
-    private String getSelectedLocation(HttpServletRequest req) {
-        String location = req.getParameter("location");
-
-        if (StringUtils.isBlank(location)) {
-            throw new AttributeNotFoundException("Request not found parameter \"location\n");
-        }
-
-        return location;
-    }
-
-    private String getSelectedAction(HttpServletRequest req) {
-        String action = req.getParameter("action");
-
-        if (StringUtils.isBlank(action)) {
-            throw new AttributeNotFoundException("Request not found parameter \"action\n");
-        }
-
-        return action;
-    }
 }

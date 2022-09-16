@@ -1,8 +1,8 @@
 const projectName = 'onlinerpg';
 let currentRoom = getCookie('currentRoom');
+let locationItems = new Map();
 
-showLocations(currentRoom);
-showStatistic();
+refreshPageData(currentRoom);
 
 async function showStatistic() {
     let statistic = await getStatistic();
@@ -13,6 +13,8 @@ async function showStatistic() {
     document.getElementById("agilityStatus").innerHTML = 'AGI: ' + statistic.agility;
     document.getElementById("staminaStatus").innerHTML = 'CON: ' + statistic.stamina;
     document.getElementById("intellectStatus").innerHTML = 'INT: ' + statistic.intellect;
+    document.getElementById("damageStatus").innerHTML = 'DAMAGE: ' + statistic.damage;
+    document.getElementById("armorStatus").innerHTML = 'ARMOR: ' + statistic.armor;
 }
 
 async function getStatistic() {
@@ -25,7 +27,7 @@ async function getStatistic() {
     return await response.json();
 }
 
-async function showLocations(location) {
+async function refreshPageData(location) {
     let newLocation = await getLocation(location);
 
     let roomImage = document.querySelector('#roomImage');
@@ -33,6 +35,9 @@ async function showLocations(location) {
 
     document.getElementById('npcBar').innerHTML = generateNpcBarHtml(newLocation.creatures);
     document.getElementById('locationBar').innerHTML = generateLocationBarHtml(newLocation);
+    document.getElementById('itemBar').innerHTML = generateItemBarHtml(newLocation.items);
+
+    showStatistic();
 }
 
 async function getLocation(location) {
@@ -90,11 +95,40 @@ function generateLocationBarHtml(location) {
 
     location.locations.forEach(
         function (currentValue) {
-            locationsHtml = locationsHtml + `<a href="#" class="btn btn-dark" onclick="showLocations('${currentValue}')">${currentValue}</a>\n`
+            locationsHtml = locationsHtml + `<a href="#" class="btn btn-dark" onclick="refreshPageData('${currentValue}')">${currentValue}</a>\n`
         }
     )
 
     return locationsHtml;
+}
+
+function generateItemBarHtml(items){
+    let itemBarHtml = '';
+
+    items.forEach(
+        function (item) {
+            locationItems.set(item.name, item);
+            itemBarHtml = itemBarHtml + `
+            <a href = "#" class = "list-group-item list-group-item-action py-3 lh-sm">
+                <div class = "d-flex w-100 align-items-center justify-content-between">
+                    <strong class = "mb-1"> ${item.name}</strong>
+                    <strong class = "mb-1">${item.type}</strong>
+                </div>
+                <img src="${item.srcImage}" class="card-img-top" id="npcImage" style="margin-bottom: 15px">
+                <div class="text-center">
+                    <div class="mb-1">${item.description}</div>
+                    <div style="margin-top: 15px"> 
+                        <button type="button" class="btn btn-dark" onclick="takeItem('${item.name}')"> 
+                            <small>Take</small>
+                        </button>
+                    </div>
+                </div>
+        </a>`
+        }
+    )
+
+    document.cookie =encodeURIComponent('locationItems') + '=' + encodeURIComponent(locationItems);
+    return itemBarHtml;
 }
 
 function getCookie(name) {
@@ -234,7 +268,7 @@ function getQuestsHtml(quests){
         function (quest) {
             if (!quest.isFinished) {
                 questHtml = questHtml + `
-                    <li><a class="nav-link px-2 link-dark">${quest.name} - </a></li>
+                    <li><a class="nav-link px-2 link-dark">${quest.name} : </a></li>
                     <li><a class="nav-link px-2 link-dark">${quest.description}</a></li>
             `;
             }
@@ -268,4 +302,28 @@ function getQuestsHtml(quests){
         </div>`
 
     return questHtml;
+}
+
+async function takeItem(itemName) {
+    let item = locationItems.get(itemName);
+
+    const data = {
+        item: item,
+        action: 'take'
+    }
+
+    const response = await fetch(`/${projectName}/item`, {
+        method: 'POST',
+        redirect: 'follow',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    refreshPageData(currentRoom);
 }
