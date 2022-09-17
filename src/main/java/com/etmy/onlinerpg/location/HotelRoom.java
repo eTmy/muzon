@@ -15,7 +15,6 @@ public class HotelRoom extends Location {
         this.srcImage = SRC_IMAGE;
 
         locations.add("Hotel");
-
     }
 
     @Override

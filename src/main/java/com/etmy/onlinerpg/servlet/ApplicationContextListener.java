@@ -15,13 +15,6 @@ public class ApplicationContextListener implements javax.servlet.ServletContextL
         Application app = new Application();
 
         context.setAttribute("app", app);
-
-        System.out.println("Game started");
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("Game finished");
     }
 
 }

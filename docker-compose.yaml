@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  servlet:
+    build: .
+    ports:
+      - "7777:8080"
+      
