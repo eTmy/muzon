@@ -90,7 +90,7 @@
             <argLine>
               --illegal-access=permit
             </argLine>
-            <testFailureIgnore>true</testFailureIgnore>
+            <testFailureIgnore>false</testFailureIgnore>
             <forkCount>2</forkCount>
             <reuseForks>true</reuseForks>
             <argLine>${surefireArgLine}</argLine>
