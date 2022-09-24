@@ -44,11 +44,6 @@ jobs:
           name: jacoco-report
           path: target/site/jacoco/
 
-      - name: Analyze with SonarCloud
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=TEST-CI-JAVARUSH -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml
 
 
       
