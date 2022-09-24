@@ -13,6 +13,5 @@ public class Shop extends Location {
         this.srcImage = SRC_IMAGE;
 
         locations.add("Hotel");
-
     }
 }

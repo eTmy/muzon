@@ -23,12 +23,13 @@ public abstract class Location {
                 .findAny();
 
         if (creature.isEmpty()) {
-           throw new CreatureNotFoundException("Location: "+name+". Not found creature: " + creatureName);
+            throw new CreatureNotFoundException("Location: " + name + ". Not found creature: " + creatureName);
         }
 
         return creature.get();
     }
 
-    public void buildItems(User user){}
+    public void buildItems(User user) {
+    }
 
 }

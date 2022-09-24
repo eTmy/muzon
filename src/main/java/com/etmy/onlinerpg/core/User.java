@@ -35,27 +35,19 @@ public class User extends Creature implements HaveInventory {
         quests.add(quest);
     }
 
-    public Quest getQuest(int id) {
+    public Quest getQuest(int id) throws NotFoundMessageException {
         Optional<Quest> quest = quests.stream().filter(q -> q.getId() == id).findAny();
 
         if (quest.isEmpty()) {
-            throw new NotFoundMessageException(this.name + " not found quest with id " + id);
+            throw new NotFoundMessageException(account.getLogin() + " not found quest with id " + id);
         }
 
         return quest.get();
     }
 
-    public boolean containQuest(int id) {
-        return quests.stream().anyMatch(m -> m.getId() == id);
-    }
-
-    private void calculateStats(){
-        this.damage += weapon.getDamage();
-    }
-
     @Override
     public void takeItem(Item item) {
-        if(item.getQuestId() > 0) {
+        if (item.getQuestId() > 0) {
             Quest quest = getQuest(item.getQuestId());
             quest.setFinished(true);
             addQuest(quest);
@@ -63,9 +55,7 @@ public class User extends Creature implements HaveInventory {
 
         if (item.getType() == ItemType.WEAPON) {
             //TODO сделать экипировку предметов из экрана инвентаря
-            this.weapon = (Weapon) item;
             inventory.add(item);
-            calculateStats();
         }
     }
 

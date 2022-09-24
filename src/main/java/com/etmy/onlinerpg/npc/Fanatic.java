@@ -18,11 +18,11 @@ public class Fanatic extends Npc implements Speakable {
         this.intellect = 20;
         this.hp = stamina * 10;
     }
+
     @Override
     public Message speak(int id) {
         return this.getMessage(id);
     }
 
-    // "Great, we're alone here! NOW YOU WILL DIE!!!;
 
 }

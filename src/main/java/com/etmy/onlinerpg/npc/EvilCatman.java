@@ -1,6 +1,5 @@
 package com.etmy.onlinerpg.npc;
 
-import com.etmy.onlinerpg.abstraction.Creature;
 import com.etmy.onlinerpg.abstraction.Npc;
 import com.etmy.onlinerpg.abstraction.Speakable;
 import com.etmy.onlinerpg.core.Message;

@@ -20,11 +20,6 @@ public class StatisticServlet extends HttpServlet {
         Application app = ServletUtils.extractApp(req);
         String login = ServletUtils.extractLogin(req);
 
-        if (!app.isAuthorized(login)) {
-            resp.sendError(401);
-            return;
-        }
-
         GameSession gameSession = app.getGameSession(login);
         User user = gameSession.getUser();
 

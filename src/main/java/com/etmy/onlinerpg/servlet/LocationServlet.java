@@ -23,11 +23,6 @@ public class LocationServlet extends HttpServlet {
         Application app = ServletUtils.extractApp(req);
         String login = ServletUtils.extractLogin(req);
 
-        if (!ServletUtils.sessionIsAuthorized(app, login)) {
-            resp.sendError(401);
-            return;
-        }
-
         GameSession gameSession = app.getGameSession(login);
         User user = gameSession.getUser();
         String location = ServletUtils.getRequestParameter(req, "location");
@@ -35,7 +30,7 @@ public class LocationServlet extends HttpServlet {
         //TODO проверить если возможность перейти из текущей локации
 
         LocationFactoryImpl locationFactory = new LocationFactoryImpl();
-        Location newLocation =  locationFactory.createLocation(location);
+        Location newLocation = locationFactory.createLocation(location);
         newLocation.buildItems(user);
 
         LocationInfo locationInfo = LocationInfo.builder()
@@ -47,7 +42,7 @@ public class LocationServlet extends HttpServlet {
                 .items(newLocation.getItems())
                 .build();
 
-        gameSession.getUser().setCurrentLocation(newLocation);
+        user.setCurrentLocation(newLocation);
 
         ObjectMapper mapper = new ObjectMapper();
 

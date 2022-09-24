@@ -6,11 +6,9 @@ import com.etmy.onlinerpg.core.GameSession;
 import com.etmy.onlinerpg.core.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 
@@ -26,7 +24,6 @@ public class InitServlet extends HttpServlet {
         String login = ServletUtils.extractLogin(req);
 
         if (ServletUtils.sessionIsAuthorized(app, login)) {
-            //TODO сделать возможнсть логаута
             //TODO сделать поиск по уже существующим юзерам в файле/бд и инициализировать сессию у сущ юзера
             GameSession gameSession = app.getGameSession(login);
             user = gameSession.getUser();

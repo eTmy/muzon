@@ -18,11 +18,6 @@ public class QuestListServlet extends HttpServlet {
         Application app = ServletUtils.extractApp(req);
         String login = ServletUtils.extractLogin(req);
 
-        if (!ServletUtils.sessionIsAuthorized(app, login)) {
-            resp.sendError(401);
-            return;
-        }
-
         ObjectMapper mapper = new ObjectMapper();
 
         ServletUtils.setResponseBody(resp, mapper.writeValueAsString(app.getGameSession(login).getUser().getQuests()));

@@ -25,11 +25,6 @@ public class ItemServlet extends HttpServlet {
         Application app = ServletUtils.extractApp(req);
         String login = ServletUtils.extractLogin(req);
 
-        if (!ServletUtils.sessionIsAuthorized(app, login)) {
-            resp.sendError(401);
-            return;
-        }
-
         String json = ServletUtils.getReqBody(req);
 
         Item item = getItem(json);
@@ -37,8 +32,8 @@ public class ItemServlet extends HttpServlet {
         User user = app.getGameSession(login).getUser();
 
         switch (action) {
-            case "take" : user.takeItem(item);
-            case "use" : user.useItem(item);
+            case "take" -> user.takeItem(item);
+            case "use" -> user.useItem(item);
         }
 
     }
@@ -52,13 +47,15 @@ public class ItemServlet extends HttpServlet {
         ItemType itemType = mapper.treeToValue(node.path("item").path("type"), ItemType.class);
 
         switch (itemType) {
-            case WEAPON: return mapper.treeToValue(node.get("item"), Weapon.class);
-            default: throw new NullPointerException();
+            case WEAPON:
+                return mapper.treeToValue(node.get("item"), Weapon.class);
+            default:
+                throw new NullPointerException();
         }
 
     }
 
-    public String getAction(String json) throws JsonProcessingException{
+    public String getAction(String json) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode node = mapper.readTree(json);
 

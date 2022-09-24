@@ -8,7 +8,6 @@ import com.etmy.onlinerpg.core.GameSession;
 import com.etmy.onlinerpg.core.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
-
 
 @WebServlet(name = "DialogServlet", value = "/dialog")
 
@@ -26,13 +24,8 @@ public class DialogServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Application app = ServletUtils.extractApp(req);
         String login = ServletUtils.extractLogin(req);
-
-        if (!ServletUtils.sessionIsAuthorized(app, login)) {
-            resp.sendError(401);
-            return;
-        }
-
         String npcName = ServletUtils.getRequestParameter(req, "npcName");
+
         int messageId = Integer.parseInt(ServletUtils.getRequestParameter(req, "messageId"));
 
         if (messageId == 0) {

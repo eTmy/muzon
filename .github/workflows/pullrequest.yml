@@ -31,11 +31,24 @@ jobs:
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
           echo "branch coverage = ${{ steps.jacoco.outputs.branches }}"
 
+      - name: Add coverage PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          message: "coverage = ${{ steps.jacoco.outputs.coverage }}"
+
       - name: Upload jacoco coverage report
         uses: actions/upload-artifact@v2
         with:
           name: jacoco-report
           path: target/site/jacoco/
+
+      - name: Analyze with SonarCloud
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=TEST-CI-JAVARUSH -Dsonar.coverage.jacoco.xmlReportPaths=./target/site/jacoco/jacoco.xml
 
 
       

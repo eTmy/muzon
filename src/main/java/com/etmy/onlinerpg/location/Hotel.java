@@ -8,7 +8,7 @@ public class Hotel extends Location {
     private static final String TEXT = "You are in the hotel";
     private static final String SRC_IMAGE = "image/hotel.png";
 
-    {
+    public Hotel() {
         this.setName(NAME);
         this.text = TEXT;
         this.srcImage = SRC_IMAGE;

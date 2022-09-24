@@ -22,11 +22,6 @@ public class QuestServlet extends HttpServlet {
         Application app = ServletUtils.extractApp(req);
         String login = ServletUtils.extractLogin(req);
 
-        if (!ServletUtils.sessionIsAuthorized(app, login)) {
-            resp.sendError(401);
-            return;
-        }
-
         updateQuest(req, app, login);
     }
 

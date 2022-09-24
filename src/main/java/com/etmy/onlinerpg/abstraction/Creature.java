@@ -1,6 +1,5 @@
 package com.etmy.onlinerpg.abstraction;
 
-import com.etmy.onlinerpg.location.Hotel;
 import lombok.Getter;
 
 @Getter

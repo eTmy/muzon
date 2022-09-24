@@ -5,7 +5,6 @@ import com.etmy.onlinerpg.exception.AttributeNotFoundException;
 import com.etmy.onlinerpg.exception.ParameterNotFoundException;
 import org.apache.commons.lang3.StringUtils;
 
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,7 +14,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class ServletUtils {
-
     public static String extractLogin(HttpServletRequest req) {
         try {
             return getHttpSessionStringAttribute(req.getSession(), "login");
@@ -70,7 +68,7 @@ public class ServletUtils {
         return result;
     }
 
-    public static String getReqBody(HttpServletRequest req){
+    public static String getReqBody(HttpServletRequest req) {
         StringBuffer jb = new StringBuffer();
         String line = null;
         try {
@@ -83,6 +81,4 @@ public class ServletUtils {
 
         return jb.toString();
     }
-
-
 }

@@ -3,12 +3,11 @@ package com.etmy.onlinerpg.npc;
 import com.etmy.onlinerpg.abstraction.Npc;
 import com.etmy.onlinerpg.core.Message;
 import com.etmy.onlinerpg.core.Quest;
-import com.etmy.onlinerpg.core.User;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class Catman extends Npc  {
+public class Catman extends Npc {
     {
         this.name = "Jake";
         this.nickname = "Nervine";

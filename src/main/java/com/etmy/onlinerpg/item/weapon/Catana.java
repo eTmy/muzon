@@ -1,7 +1,5 @@
 package com.etmy.onlinerpg.item.weapon;
 
-import com.etmy.onlinerpg.abstraction.QuestItem;
-
 public class Catana extends Weapon {
 
     {

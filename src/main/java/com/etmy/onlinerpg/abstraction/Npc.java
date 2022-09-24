@@ -19,7 +19,8 @@ public abstract class Npc extends Creature implements Speakable {
     public Message speak(int id) {
         return this.getMessage(id);
     }
-    public Message getMessage(int id){
+
+    public Message getMessage(int id) {
         Optional<Message> message = dialog.stream().filter(m -> m.getId() == id).findAny();
 
         if (message.isEmpty()) {

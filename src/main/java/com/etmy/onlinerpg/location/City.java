@@ -1,7 +1,6 @@
 package com.etmy.onlinerpg.location;
 
 import com.etmy.onlinerpg.abstraction.Location;
-import com.etmy.onlinerpg.npc.Catman;
 
 public class City extends Location {
     private static final String NAME = "City";
