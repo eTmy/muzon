@@ -5,6 +5,8 @@ import com.etmy.onlinerpg.core.Application;
 import com.etmy.onlinerpg.core.GameSession;
 import com.etmy.onlinerpg.core.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
